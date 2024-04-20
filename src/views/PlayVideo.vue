@@ -126,7 +126,7 @@ main {
                 video_stream: {},
                 audio_video_stream: {},
 
-                playbackPosition: 0,
+                playbackPosition: NaN,
                 
                 playerOptions: {
                     width: "640",
@@ -202,13 +202,22 @@ main {
             checkVideoInfo(user_id, video_id){
                 VideoApi.getUserVideo(user_id)
                     .then(res => {
-                            res.data.forEach(v => {
-                                if(v.videoId === video_id){
-                                    this.added_to_favorite = v.favored;
-                                    this.playbackPosition = v.resumeAt;
-                                    return;
-                                }
-                            });
+                            if(null === res.data || undefined === res.data || res.data.length === 0){
+                                this.playbackPosition = 0;
+                            } else {
+                                res.data.forEach(v => {
+                                    if(v.videoId === video_id){
+                                        this.added_to_favorite = v.favored;
+                                        if(undefined === v.resumeAt || null === v.resumeAt || Number.isNaN(v.resumeAt)){
+                                            this.playbackPosition = 0;
+                                        } else {
+                                            this.playbackPosition = v.resumeAt;
+                                        }
+                                        console.log(`playbackPosition: ${this.playbackPosition}`);
+                                        return;
+                                    }
+                                });
+                            }
                     }).catch(err => {
                             console.error(`Failed to get favorite videos: `, err);
                     });
@@ -292,8 +301,10 @@ main {
                         player.src(this.audio_video_stream[0]);
                     }
 
-                    console.log(`set play time to ${this.playbackPosition}`);
-                    player.currentTime(this.playbackPosition);
+                    setTimeout(() => {
+                        console.log(`set play time to ${this.playbackPosition}`);
+                        player.currentTime(this.playbackPosition);
+                    }, 3000);
                     
                     //player.options_.poster(this.video_details.thumbnails[0].url);
                     //this.playerOptions = {...this.playerOptions, poster: 'https://i.ytimg.com/vi/AFPLRIdn1pk/sddefault.jpg'}

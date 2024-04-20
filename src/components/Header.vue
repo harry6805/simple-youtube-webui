@@ -15,13 +15,13 @@
                     </li>
 
                     <li class="nav-item">
-                      <router-link class="nav-link" to="/jobs" exact-active-class="active">Continue to Watch</router-link>
+                      <router-link class="nav-link" to="/continue" exact-active-class="active">Continue to Watch</router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link class="nav-link" exact-active-class="active" to="/membership">Watched</router-link>
+                      <router-link class="nav-link" exact-active-class="active" to="/favorites">Favorites</router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link class="nav-link" exact-active-class="active" to="/membership">Favorites</router-link>
+                      <router-link class="nav-link" exact-active-class="active" to="/subscribes">Subscribes</router-link>
                     </li>
                   
                 </ul>
@@ -33,10 +33,7 @@
               </div>
             </div>
         </nav>
-        <form class="form-inline my-2 my-lg-0 d-flex my-3">
-                  <input class="form-control mr-sm-2 mx-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success mx-2 my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
   </div>
 </template>
 
